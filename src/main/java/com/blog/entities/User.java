@@ -18,10 +18,12 @@ import lombok.Setter;
 public class User {
 	
 	
-	
 	public User() {
 		
 	}
+	
+//	validating using JSR 380 also know as Bean Validation 2.0
+//	@NotNull @Min, @Size @Max @NotNull
 	
 	@Id
 	@GeneratedValue(strategy  = GenerationType.AUTO)

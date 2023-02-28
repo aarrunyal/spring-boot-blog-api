@@ -1,5 +1,11 @@
 package com.blog.payloads;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 public class UserDto {
 
 	
@@ -9,11 +15,27 @@ public class UserDto {
 	}
 	
 	private Long id;
+	
+	@NotEmpty
+	@Size(min=4, message = "First Name must be minimum of 4 characters")
 	private String firstName;
+	
+	@NotEmpty
+	@Size(min=4, message = "Last Name must be minimum of 4 characters")
 	private String lastName;
+	
+	@NotEmpty
+	@Email(message="Email address is not valid !!")
 	private String email;
+	
+	@NotEmpty
 	private String about;
+	
+	@NotEmpty(message="Email cannot be empty")
+	@Size(min=4, max = 10, message="Password must be minimum of 4 chars and maximum of 10 chars")
+//	@Pattern(regexp = "pattern here")
 	private String password;
+	
 	
 	
 	public Long getId() {
