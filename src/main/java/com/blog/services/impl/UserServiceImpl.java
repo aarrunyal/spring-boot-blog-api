@@ -3,6 +3,7 @@ package com.blog.services.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.blog.entities.User;
@@ -15,9 +16,11 @@ import com.blog.services.UserService;
 public class UserServiceImpl implements UserService {
 
 	private UserRepository userRepo;
+	private ModelMapper modelMapper;
 
-	public UserServiceImpl(UserRepository userRepository) {
+	public UserServiceImpl(UserRepository userRepository, ModelMapper mapper) {
 		this.userRepo = userRepository;
+		this.modelMapper = mapper;
 	}
 
 	@Override
@@ -64,24 +67,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	private User dtoToEntity(UserDto userDto) {
-		User user = new User();
-		user.setId(userDto.getId());
-		user.setFirstName(userDto.getFirstName());
-		user.setLastName(userDto.getLastName());
-		user.setEmail(userDto.getEmail());
-		user.setAbout(userDto.getAbout());
-		user.setPassword(userDto.getPassword());
+		User user = this.modelMapper.map(userDto, User.class);
 		return user;
 	}
 
 	private UserDto entityToDto(User user) {
-		UserDto userDto = new UserDto();
-		userDto.setId(user.getId());
-		userDto.setFirstName(user.getFirstName());
-		userDto.setLastName(user.getLastName());
-		userDto.setEmail(user.getEmail());
-		userDto.setAbout(user.getAbout());
-		userDto.setPassword(user.getPassword());
+		UserDto userDto  = this.modelMapper.map(user, UserDto.class);
 		return userDto;
 	}
 
