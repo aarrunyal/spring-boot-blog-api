@@ -17,30 +17,44 @@ public class Category {
 	private Long id;
 	@Column(name="title", nullable = false)
 	private String title;
-	private Long category_id;
+	@Column(name="category_id", nullable = true)
+	private Long categoryId;
 	
 	
-	
-	
-	
-	public Category(String title, Long category_id) {
-		super();
-		this.title = title;
-		this.category_id = category_id;
+	public Category() {
+		
 	}
+	
+	
+//	public Category(String title, Long category_id) {
+//		super();
+//		this.title = title;
+//		this.category_id = category_id;
+//	}
+//	
 	
 	
 	public String getTitle() {
 		return title;
 	}
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Long getCategory_id() {
-		return category_id;
+	public Long getCategoryId() {
+		return categoryId;
 	}
-	public void setCategory_id(Long category_id) {
-		this.category_id = category_id;
+	public void setCategoryId(Long categoryId) {
+		this.categoryId= categoryId;
 	}
 	
 	

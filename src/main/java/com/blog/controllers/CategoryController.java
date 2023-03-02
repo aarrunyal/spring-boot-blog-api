@@ -40,7 +40,7 @@ public class CategoryController {
 		return new ResponseEntity<CategoryDto>(categoryDto2, HttpStatus.OK);
 	}
 //	
-	@GetMapping("/categoryId")
+	@GetMapping("/{categoryId}")
 	public ResponseEntity<CategoryDto> getByCategoryId(@PathVariable Long categoryId){
 		CategoryDto categoryDto = this.categoryService.getCategoryById(categoryId);
 		return new ResponseEntity<CategoryDto>(categoryDto, HttpStatus.OK);

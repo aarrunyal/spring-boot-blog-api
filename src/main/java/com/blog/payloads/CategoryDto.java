@@ -14,35 +14,37 @@ public class CategoryDto {
 	@NotEmpty
 	private String title;
 	
-	private Long category_id;
+	private Long categoryId;
 	
 	
 	
 	
 	
 	public CategoryDto() {
-		super();
+		
 	}
 
-
-	public CategoryDto(String title, Long category_id) {
-		super();
-		this.title = title;
-		this.category_id = category_id;
-	}
-	
+//	
 	
 	public String getTitle() {
 		return title;
 	}
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Long getCategory_id() {
-		return category_id;
+	public Long getCategoryId() {
+		return categoryId;
 	}
-	public void setCategory_id(Long category_id) {
-		this.category_id = category_id;
+	public void setCategoryId(Long category_id) {
+		this.categoryId = category_id;
 	}
 	
 }
