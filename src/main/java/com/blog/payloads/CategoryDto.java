@@ -15,7 +15,7 @@ public class CategoryDto {
 	private String title;
 	
 	private Long categoryId;
-	
+	private String description;
 	
 	
 	
@@ -46,5 +46,14 @@ public class CategoryDto {
 	public void setCategoryId(Long category_id) {
 		this.categoryId = category_id;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	
 }
