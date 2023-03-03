@@ -6,6 +6,7 @@ import com.blog.entities.Category;
 import com.blog.entities.Post;
 import com.blog.entities.User;
 import com.blog.payloads.PostDto;
+import com.blog.payloads.PostResponse;
 
 
 public interface PostService {
@@ -16,7 +17,7 @@ public interface PostService {
 	
 	PostDto getPostById(Long postId);
 	
-	List<PostDto> getAllPosts();
+	PostResponse getAllPosts(Integer pageNumber, Integer pageSize );
 	
 	void deletePost(Long postId);
 
