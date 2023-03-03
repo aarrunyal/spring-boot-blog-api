@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.blog.entities.Category;
@@ -70,8 +71,10 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public PostResponse getAllPosts(Integer pageNumber, Integer pageSize ) {
-		Pageable p = PageRequest.of(pageNumber, pageSize);
+	public PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection) {
+		Sort sort = sortDirection.equalsIgnoreCase("asc")?Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
+		
+		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
 		
 		Page<Post> pagePosts = this.postRepository.findAll(p);
 		List<Post> allPosts = pagePosts.getContent();
@@ -105,8 +108,9 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public List<PostDto> getPostByUserId(Long userId) {
+	public List<PostDto> getPostByUserId(Long userId, Integer pageNumber, Integer pageSize ) {
 		User user = this.userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User", "User Id", userId));
+		Pageable pageable=PageRequest.of(pageNumber, pageSize);
 		List<Post> posts = this.postRepository.findByUser(user);
 		List<PostDto> postDtos = posts.stream().map((post)->this.modelMapper.map(post,PostDto.class)).collect(Collectors.toList());
 		return postDtos;
@@ -114,8 +118,11 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public List<PostDto> seachPosts(String key) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Post> posts = this.postRepository.findByTitleContaining(key);
+		List<PostDto> postDtos = posts.stream()
+				.map(post->this.modelMapper.map(post, PostDto.class))
+				.collect(Collectors.toList());
+		return postDtos;
 	}
 
 	

@@ -17,7 +17,7 @@ public interface PostService {
 	
 	PostDto getPostById(Long postId);
 	
-	PostResponse getAllPosts(Integer pageNumber, Integer pageSize );
+	PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection);
 	
 	void deletePost(Long postId);
 
@@ -25,7 +25,7 @@ public interface PostService {
 	List<PostDto> getPostByCategoryId(Long categoryId);
 	
 //	get all post by user id
-	List<PostDto> getPostByUserId(Long userId);
+	List<PostDto> getPostByUserId(Long userId, Integer pageNumber, Integer pageSize);
 	
 // 	search post by key
 	List<PostDto> seachPosts(String key);
