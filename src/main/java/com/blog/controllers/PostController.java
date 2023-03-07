@@ -80,14 +80,11 @@ public class PostController {
 		return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
 	}
 
-//	@GetMapping("user/{userId}/posts")
-//	public ResponseEntity<PostResponse> getPostByUser(
-//			@PathVariable Long userId,
-//			@RequestParam(value="pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-//			@RequestParam(value="pageSize", defaultValue = "5", required = false) Integer pageSize){
-//		PostResponse postResponse =  this.postService.getPostByUserId(userId, pageNumber, pageSize);
-//		return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
-//	}
+	@GetMapping("user/{userId}/posts")
+	public ResponseEntity<List<PostDto>> getPostByUser(@PathVariable Long userId){
+		List<PostDto> posts =  this.postService.getPostByUserId(userId);
+		return new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
+	}
 
 	@GetMapping("category/{categoryId}/posts")
 	public ResponseEntity<List<PostDto>> getPostByCategory(@PathVariable Long categoryId) {

@@ -108,9 +108,8 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public List<PostDto> getPostByUserId(Long userId, Integer pageNumber, Integer pageSize ) {
+	public List<PostDto> getPostByUserId(Long userId) {
 		User user = this.userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User", "User Id", userId));
-		Pageable pageable=PageRequest.of(pageNumber, pageSize);
 		List<Post> posts = this.postRepository.findByUser(user);
 		List<PostDto> postDtos = posts.stream().map((post)->this.modelMapper.map(post,PostDto.class)).collect(Collectors.toList());
 		return postDtos;

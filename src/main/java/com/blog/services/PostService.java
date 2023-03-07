@@ -25,7 +25,7 @@ public interface PostService {
 	List<PostDto> getPostByCategoryId(Long categoryId);
 	
 //	get all post by user id
-	List<PostDto> getPostByUserId(Long userId, Integer pageNumber, Integer pageSize);
+	List<PostDto> getPostByUserId(Long userId);
 	
 // 	search post by key
 	List<PostDto> seachPosts(String key);
