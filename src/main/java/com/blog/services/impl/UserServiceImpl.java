@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.blog.entities.User;
@@ -12,22 +14,26 @@ import com.blog.payloads.UserDto;
 import com.blog.repositories.UserRepository;
 import com.blog.services.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+	@Autowired
 	private UserRepository userRepo;
+	@Autowired
 	private ModelMapper modelMapper;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-	public UserServiceImpl(UserRepository userRepository, ModelMapper mapper) {
-		this.userRepo = userRepository;
-		this.modelMapper = mapper;
-	}
 
 	@Override
 	public UserDto createUser(UserDto userDto) {
 		User user = this.dtoToEntity(userDto);
+		user.setPassword(this.passwordEncoder.encode(userDto.getPassword()));
 		User savedUser = this.userRepo.save(user);
-		return this.entityToDto(savedUser);
+		return this.modelMapper.map(savedUser, UserDto.class);
 	}
 
 	@Override
@@ -38,6 +44,7 @@ public class UserServiceImpl implements UserService {
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
 		user.setAbout(userDto.getAbout());
+		user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 		User updateUser = this.userRepo.save(user);
 		return this.entityToDto(updateUser);
 	}
